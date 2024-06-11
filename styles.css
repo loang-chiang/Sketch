@@ -1,0 +1,27 @@
+/* grid styling */
+    .sqr {
+        border: 0.5px solid black;
+        width: 10px;
+        height: 10px;
+        margin: 0px;
+    }
+
+    .sqr-64 {
+        background-color: blue;
+        border: 0.5px solid black;
+        width: 10px;
+        height: 10px;
+    }
+
+    #cont {
+        width: 710px;
+        height: 710px;
+        display: flex;
+        border: 1px solid red;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: center;
+        margin: auto;
+    }
+
+    
