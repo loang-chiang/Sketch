@@ -6,22 +6,35 @@
         margin: 0px;
     }
 
-    .sqr-64 {
-        background-color: blue;
-        border: 0.5px solid black;
-        width: 10px;
-        height: 10px;
-    }
-
     #cont {
         width: 710px;
         height: 710px;
         display: flex;
-        border: 1px solid red;
+        border: 1px solid black;
         flex-wrap: wrap;
         justify-content: center;
         align-content: center;
         margin: auto;
     }
 
-    
+/* toolbox styling */
+    #tools {
+        display: flex;
+        border: 0.5px solid black;
+        width: 710px;
+        margin: auto; 
+    }
+
+    #tools > div {
+        border: 0.5px solid black;
+        flex: 1;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+/* other styling */
+    h1 {
+        text-align: center;
+    }
