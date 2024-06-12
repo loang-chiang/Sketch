@@ -1,51 +1,90 @@
 /* grid styling */
     .sqr {
-        border: 0.5px solid black;
+        border: 0.5px solid #d4996a;
         width: 10px;
         height: 10px;
         margin: 0px;
+        background-color: white;
     }
 
     #cont {
         width: 710px;
         height: 710px;
         display: flex;
-        border: 1px solid black;
+        border: 1px solid #d4996a;
         flex-wrap: wrap;
         justify-content: center;
         align-content: center;
-        margin: auto;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: white;
     }
 
 /* toolbox styling */
     #tools {
         display: flex;
-        border: 0.5px solid black;
+        border: 0.5px solid #d4996a;
         width: 710px;
         margin: auto; 
+        background-color: white;
+        margin-bottom: 10px;
     }
 
     #tools > div {
-        border: 0.5px solid black;
+        border: 0.5px solid #d4996a;
         flex: 1;
         height: 80px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 5px;
+        padding: 10px;
     }
 
 /* other styling */
     h1 {
         text-align: center;
+        color: #d4996a;
+        font-size: 40px;
+        margin: 0px;
+        padding-top: 30px;
+        padding-bottom: 30px;
     }
 
     p {
         margin-bottom: 5px;
         margin-top: 5px;
+        color: #d4996a;
     }
 
     i {
         font-size: 30px;
+        color: #d4996a;
+    }
+
+    select {
+        color: #d4996a;
+        border: 1px solid #d4996a;
+    }
+
+    #program-body {
+        background-color: #fff0e4;
+        height: auto;
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+        padding-bottom: 5ß0px;
+    }
+
+    body, html {
+        margin: 0px;
+        padding: 0px;
+        height: auto;
+        width: auto;
+    }
+
+    html {
+        background-image: url('2.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
     }

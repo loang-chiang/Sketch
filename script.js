@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         else {
             paintTool = true;
-            this.style.backgroundColor = "gray";
+            this.style.backgroundColor = "#fff0e4";
         }
         let color = document.querySelector("#color-select").value;
         let size = document.querySelector("#paint-size-select").value;
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         else {
             eraserTool = true;
-            this.style.backgroundColor = "gray";
+            this.style.backgroundColor = "#fff0e4";
         }
         let size = document.querySelector("#eraser-size-select").value; 
         paint("white", size);
@@ -72,11 +72,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // automatically both tools to false and changes styling
         paintTool = false; 
         eraserTool = false;
+        paint(null, null); // calls the function null to get rid of eventListeners
+
         document.querySelector("#paint").style.backgroundColor = "white";
         document.querySelector("#erase").style.backgroundColor = "white";
 
         // changes div color to gray then back to white after half a second
-        this.style.backgroundColor = "gray";
+        this.style.backgroundColor = "#fff0e4";
         setTimeout(() => {
             this.style.backgroundColor = "white";
         }, 500);
