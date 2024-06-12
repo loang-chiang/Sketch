@@ -1,4 +1,4 @@
-/* grid styling */
+/* canvas styling */
     .sqr {
         border: 0.5px solid #d4996a;
         width: 10px;
@@ -21,10 +21,15 @@
     }
 
 /* toolbox styling */
+    #tools-cont {
+        display: flex;
+    }
+
     #tools {
         display: flex;
         border: 0.5px solid #d4996a;
-        width: 710px;
+        flex-basis: 710px;
+        flex-shrink: 1;  /* allows tools bar to shrink */
         margin: auto; 
         background-color: white;
         margin-bottom: 10px;
@@ -71,9 +76,10 @@
         background-color: #fff0e4;
         height: auto;
         width: 70%;
+        min-width: 750px;
         margin-left: auto;
         margin-right: auto;
-        padding-bottom: 5ß0px;
+        padding-bottom: 50px;
     }
 
     body, html {
@@ -84,7 +90,7 @@
     }
 
     html {
-        background-image: url('2.jpg');
+        background-image: url('background.jpg');
         background-size: cover;
         background-repeat: no-repeat;
     }

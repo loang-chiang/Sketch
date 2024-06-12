@@ -11,40 +11,43 @@
     <body>
         <div id="program-body">
             <h1>Sketch!</h1>
-            <div id="tools">
-                <div id="paint">
-                    <i class="bi bi-brush"></i>
-                    <p>Paint</p>
-                    <div>
-                        <select id="color-select">
-                            <option value="red">Red</option>
-                            <option value="blue">Blue</option>
-                            <option value="yellow">Yellow</option>
-                            <option value="green">Green</option>
-                            <option value="black">Black</option>
-                            <option value="pink">Pink</option>
-                            <option value="orange">Orange</option>
-                            <option value="purple">Purple</option>
-                        </select>
-                        <select id="paint-size-select">
+
+            <div id="tools-cont">
+                <div id="tools">
+                    <div id="paint">
+                        <i class="bi bi-brush"></i>
+                        <p>Paint</p>
+                        <div>
+                            <select id="color-select">
+                                <option value="red">Red</option>
+                                <option value="blue">Blue</option>
+                                <option value="yellow">Yellow</option>
+                                <option value="green">Green</option>
+                                <option value="black">Black</option>
+                                <option value="pink">Pink</option>
+                                <option value="orange">Orange</option>
+                                <option value="purple">Purple</option>
+                            </select>
+                            <select id="paint-size-select">
+                                <option value="small">Small</option>  <!-- 1x1 -->
+                                <option value="medium">Medium</option>  <!-- 3x3 -->
+                                <option value="large">Large</option>  <!-- 5x5 -->
+                            </select>
+                        </div>
+                    </div>
+                    <div id="erase">
+                        <i class="bi bi-eraser"></i>
+                        <p>Erase</p>
+                        <select id="eraser-size-select">
                             <option value="small">Small</option>  <!-- 1x1 -->
                             <option value="medium">Medium</option>  <!-- 3x3 -->
-                            <option value="big">Big</option>  <!-- 5x5 -->
+                            <option value="large">Large</option>  <!-- 5x5 -->
                         </select>
                     </div>
-                </div>
-                <div id="erase">
-                    <i class="bi bi-eraser"></i>
-                    <p>Erase</p>
-                    <select id="eraser-size-select">
-                        <option value="small">Small</option>  <!-- 1x1 -->
-                        <option value="medium">Medium</option>  <!-- 3x3 -->
-                        <option value="big">Big</option>  <!-- 5x5 -->
-                    </select>
-                </div>
-                <div id="blank">
-                    <i class="bi bi-file-earmark"></i>
-                    <p>New Page</p>
+                    <div id="blank">
+                        <i class="bi bi-file-earmark"></i>
+                        <p>New Canvas</p>
+                    </div>
                 </div>
             </div>
 

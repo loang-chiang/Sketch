@@ -1,18 +1,17 @@
 document.addEventListener('DOMContentLoaded', function() {
-    create_grid();
+    create_canvas();
 
-    // when user clicks PAINT div
+    // when user clicks PAINT button
     document.querySelector("#paint").onclick = function() {
-        // automatically sets the other tool to false and changes styling
+        // automatically sets the other tool to false and changes its styling
         eraserTool = false;
         document.querySelector("#erase").style.backgroundColor = "white";
 
-        if (paintTool === true) {
-            console.log("PAINTING");
+        if (paintTool === true) {  // turns off paintTool
             paintTool = false;
             this.style.backgroundColor = "white";
         }
-        else {
+        else {  // turns on paintTool
             paintTool = true;
             this.style.backgroundColor = "#fff0e4";
         }
@@ -23,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let elements = document.querySelectorAll("#color-select, #paint-size-select");
     elements.forEach(function(element) {
+
         // prevents that switching colors or sizes will call the div onclick function
         element.onclick = function(event) {
             event.stopPropagation();
@@ -37,18 +37,17 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 
-    // when user clicks ERASE div
+    // when user clicks ERASE button
     document.querySelector("#erase").onclick = function() {
-        // automatically sets the other tool to false and changes styling
+        // automatically sets the other tool to false and changes its styling
         paintTool = false; 
         document.querySelector("#paint").style.backgroundColor = "white";
 
-        if (eraserTool === true) {
-            console.log("ERASING");
+        if (eraserTool === true) {  // turns off eraserTool
             eraserTool = false;
             this.style.backgroundColor = "white";
         }
-        else {
+        else {  // turns on eraserTool
             eraserTool = true;
             this.style.backgroundColor = "#fff0e4";
         }
@@ -67,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
-    // when user clicks NEW PAGE div
+    // when user clicks NEW PAGE button
     document.querySelector("#blank").onclick = function() {
         // automatically both tools to false and changes styling
         paintTool = false; 
@@ -87,13 +86,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// variables
-    // variable to know if user is currently painting
-    let isPainting = false; 
 
-    // disable painting when mouse is up
+// variables
+    // variable to know if user is currently painting or erasing
+    let isPaintingOrErasing = false; 
+
+    // disable painting or erasing when mouse is up
     window.onmouseup = () => {
-        isPainting = false;
+        isPaintingOrErasing = false;
     }
 
     // if paint tool is in use
@@ -103,9 +103,9 @@ document.addEventListener('DOMContentLoaded', function() {
     let eraserTool = false;
 
 
-// creates 64 x 64 grid
-function create_grid() {
-    console.log("Calling create_grid function");
+// creates 64x64 canvas
+function create_canvas() {
+    console.log("Calling create_canvas function");
 
     const cont = document.querySelector("#cont");
     let col = 1;
@@ -116,14 +116,15 @@ function create_grid() {
         cont.appendChild(sqr);
         sqr.classList.add('sqr')
 
-        // saves the row and column of the square
+        // saves the row and column of each square
         sqr.dataset.col = col;
         sqr.dataset.row = row;
 
-        if (i % 64 === 0) {
+        if (i % 64 === 0) {  // restarts columns and adds to rows when in a new row
             col = 0;
             row++;
         }
+
         col++;
         i++;
     }
@@ -134,7 +135,7 @@ function paint(color, size) {
     console.log(`Calling paint function with ${color} color`);
 
     document.querySelectorAll(".sqr").forEach(sqr => {
-        if (paintTool === true || eraserTool === true) {
+        if (paintTool === true || eraserTool === true) {  // if the user is currently using either the paint or eraser tool
             let paintingFunc = function() {
                 sqr.style.backgroundColor = color;
 
@@ -148,7 +149,7 @@ function paint(color, size) {
                     if (size === "medium") {  // colors a 3x3 radius of squares
                         coordinates = [[-1, -1], [0, -1], [1, -1], [-1, 0], [1, 0], [-1, 1], [0, 1], [1, 1]];
                     }
-                    else if (size === "big") {  // colors a 5x5 radius of squares
+                    else if (size === "large") {  // colors a 5x5 radius of squares
                         coordinates = [[-2, -2], [-1, -2], [0, -2], [1, -2], [2, -2], 
                                         [-2, -1], [-1, -1], [0, -1], [1, -1], [2, -1],
                                         [-2, 0], [-1, 0], [1, 0], [2, 0],
@@ -169,16 +170,16 @@ function paint(color, size) {
                 }
             }
             sqr.onmousedown = function() {
-                isPainting = true;
+                isPaintingOrErasing = true;
                 paintingFunc();
             }
-            sqr.onmouseover = function() {
-                if (isPainting) {
+            sqr.onmouseover = function() {  // allows the user to keep painting squares when clicking down on their mouse
+                if (isPaintingOrErasing) {
                     paintingFunc();
                 } 
             }
         }
-        else {
+        else {  // user can't paint nor erase if the button hasn't been pressed
             sqr.onmousedown = null;
             sqr.onmouseover = null;
         }
@@ -190,6 +191,7 @@ function paint(color, size) {
 function blank() {
     console.log("Calling blank function");
 
+    // resets the color of all squares to white
     document.querySelectorAll(".sqr").forEach(sqr => {
         sqr.style.backgroundColor = "white";
     })
