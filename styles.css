@@ -28,13 +28,24 @@
     #tools > div {
         border: 0.5px solid black;
         flex: 1;
-        height: 30px;
+        height: 80px;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
+        padding: 5px;
     }
 
 /* other styling */
     h1 {
         text-align: center;
+    }
+
+    p {
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+
+    i {
+        font-size: 30px;
     }

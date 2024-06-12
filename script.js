@@ -16,19 +16,26 @@ document.addEventListener('DOMContentLoaded', function() {
             paintTool = true;
             this.style.backgroundColor = "gray";
         }
-        let color = document.querySelector("select").value;
-        paint(color);
+        let color = document.querySelector("#color-select").value;
+        let size = document.querySelector("#paint-size-select").value;
+        paint(color, size);
     }
 
-    // prevents that switching colors will call the div onclick function
-    document.querySelector("select").onclick = function(event) {
-        event.stopPropagation();
-    }
+    let elements = document.querySelectorAll("#color-select, #paint-size-select");
+    elements.forEach(function(element) {
+        // prevents that switching colors or sizes will call the div onclick function
+        element.onclick = function(event) {
+            event.stopPropagation();
+        }
 
-    document.querySelector("select").onchange = function() {
-        let color = this.value;
-        paint(color);
-    }
+        // when user changes color or size of brush
+        element.onchange = function() {
+            let color = document.querySelector("#color-select").value; 
+            let size = document.querySelector("#paint-size-select").value; 
+            paint(color, size);
+        }
+    });
+
 
     // when user clicks ERASE div
     document.querySelector("#erase").onclick = function() {
@@ -45,8 +52,20 @@ document.addEventListener('DOMContentLoaded', function() {
             eraserTool = true;
             this.style.backgroundColor = "gray";
         }
-        paint("white");
+        let size = document.querySelector("#eraser-size-select").value; 
+        paint("white", size);
     }
+
+    // prevents that switching sizes will call the div onclick function
+    let eraserSize = document.querySelector("#eraser-size-select");
+    eraserSize.onclick = function(event) {
+        event.stopPropagation();
+    }
+    eraserSize.onchange = function() {
+        let size = eraserSize.value;
+        paint("white", size);
+    }
+
 
     // when user clicks NEW PAGE div
     document.querySelector("#blank").onclick = function() {
@@ -87,36 +106,75 @@ function create_grid() {
     console.log("Calling create_grid function");
 
     const cont = document.querySelector("#cont");
+    let col = 1;
+    let row = 1;
     let i = 1;
     while (i != 64*64+1) {
         let sqr = document.createElement('div');
         cont.appendChild(sqr);
         sqr.classList.add('sqr')
+
+        // saves the row and column of the square
+        sqr.dataset.col = col;
+        sqr.dataset.row = row;
+
+        if (i % 64 === 0) {
+            col = 0;
+            row++;
+        }
+        col++;
         i++;
     }
 }
 
 
-function paint(color) {
+function paint(color, size) {
     console.log(`Calling paint function with ${color} color`);
-    console.log(paintTool);
 
     document.querySelectorAll(".sqr").forEach(sqr => {
         if (paintTool === true || eraserTool === true) {
+            let paintingFunc = function() {
+                sqr.style.backgroundColor = color;
 
-            let mousedownFunction = function() {
-                isPainting = true;
-                this.style.backgroundColor = color;
-            };
+                let col = parseInt(sqr.dataset.col);
+                let row = parseInt(sqr.dataset.row);
 
-            let mouseoverFunction = function() {
-                if (isPainting) {
-                    this.style.backgroundColor = color;
+                if (size !== "small") {  // colors more squares than just the one being clicked
+                    let squares = [];
+                    let coordinates = [];
+
+                    if (size === "medium") {  // colors a 3x3 radius of squares
+                        coordinates = [[-1, -1], [0, -1], [1, -1], [-1, 0], [1, 0], [-1, 1], [0, 1], [1, 1]];
+                    }
+                    else if (size === "big") {  // colors a 5x5 radius of squares
+                        coordinates = [[-2, -2], [-1, -2], [0, -2], [1, -2], [2, -2], 
+                                        [-2, -1], [-1, -1], [0, -1], [1, -1], [2, -1],
+                                        [-2, 0], [-1, 0], [1, 0], [2, 0],
+                                        [-2, 1], [-1, 1], [0, 1], [1, 1], [2, 1],
+                                        [-2, 2], [-1, 2], [0, 2], [1, 2], [2, 2]]
+                    }
+                    
+                    for (let coordinate of coordinates) {
+                        let square = document.querySelector(`[data-col='${col+coordinate[0]}'][data-row='${row+coordinate[1]}']`);
+                        if (square !== null) {
+                            squares.push(square);
+                        }
+                    }
+
+                    for (let square of squares) {
+                        square.style.backgroundColor = color;
+                    }
                 }
-            };
-
-            sqr.onmousedown = mousedownFunction;
-            sqr.onmouseover = mouseoverFunction;
+            }
+            sqr.onmousedown = function() {
+                isPainting = true;
+                paintingFunc();
+            }
+            sqr.onmouseover = function() {
+                if (isPainting) {
+                    paintingFunc();
+                } 
+            }
         }
         else {
             sqr.onmousedown = null;
@@ -124,6 +182,7 @@ function paint(color) {
         }
     })
 }
+
 
 // resets canvas
 function blank() {
